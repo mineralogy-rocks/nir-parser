@@ -142,9 +142,29 @@ Before you can clone the repository, you need to have Git installed on your syst
    - `INPUT_FOLDER_NAME`: Name of the folder containing input CSV files (default: "input")
    - `OUTPUT_FOLDER_NAME`: Name of the folder where results will be saved (default: "output")
 
-2. **Prepare input data**
+2. **Customizing Thresholds**
+
+   You can customize the spectral peak thresholds by modifying the `THRESHOLDS` tuple in the `src/choices.py` file:
+
+   ```python
+   THRESHOLDS = (
+       ('peak-1', (5500, 8000)),
+       ('peak-2', (4600, 5540)),
+       ('peak-3', (4310, 4788)),
+   )
+   ```
+
+   Each threshold is defined as a tuple with:
+   - A name identifier (e.g., 'peak-1')
+   - A range represented as a tuple of two integers (e.g., (5500, 8000)) specifying the wavelength range in nanometers
+
+3. **Prepare input data**
 
    Place your CSV files in the input folder. The input folder cannot be empty.
+
+4. **Customize endmembers**
+
+   You can modify the endmembers used for analysis by editing the `data/endmembers.xlsx` file. This file contains reference data for various minerals and compounds. Feel free to add, remove, or modify entries as needed for your specific analysis requirements.
 
 ## 🔧 Usage
 
@@ -158,6 +178,24 @@ python -m src.base.main [options]
 
 - `--no-plots`: Do not show plots during processing (useful for batch processing)
 
+### Predicting optimal mixtures
+
+You can predict the optimal mixture of endmembers for your samples using:
+
+```bash
+python -m src.base.predict
+```
+
+This command requires:
+1. A valid endmembers file (where the first column is sample ID)
+2. Samples added to a second sheet of the `results.xlsx` file (where the first column is also sample ID)
+
+Requirements:
+- The number of parameters in the endmembers file and the sample sheet must be equal
+- The order of parameters should be the same in both files
+
+The command will run minimization and create a file called `results_predicted.xlsx` in the `output/data` path.
+
 ## 📝 Examples
 
 **Run with default settings:**
@@ -168,6 +206,11 @@ python -m src.base.main
 **Run without showing plots:**
 ```bash
 python -m src.base.main --no-plots
+```
+
+**Predict optimal mixtures:**
+```bash
+python -m src.base.predict
 ```
 
 ## 📊 Logging

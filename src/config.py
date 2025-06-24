@@ -20,6 +20,8 @@ class Settings:
         self.INPUT_PATH: Path = self.PROJECT_DIRECTORY / os.getenv("INPUT_FOLDER_NAME")
         self.OUTPUT_PATH: Path = self.PROJECT_DIRECTORY / os.getenv("OUTPUT_FOLDER_NAME")
 
+        self.ENDMEMBERS_PATH: Path = PROJECT_ROOT / "data" / "endmembers.xlsx"
+
         self._validate()
 
     def _load_env(self):
