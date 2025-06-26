@@ -1,9 +1,10 @@
-# NIR Parser
+# SPx
 
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-A tool for processing Near-Infrared (NIR) spectral data, extracting features, and generating visualizations.
+**SPx** is a tool for processing spectral data (including but not limited to Near-Infrared (NIR)), 
+extracting features, generating visualizations and statistics, and applying linear spectral unmixing (LSUMx) to retrieve smectite content from measured NIR spectra.
 
 ## 📋 Table of Contents
 
@@ -18,10 +19,12 @@ A tool for processing Near-Infrared (NIR) spectral data, extracting features, an
 
 ## ✨ Features
 
-- Process NIR spectral data from CSV files
-- Remove continuum and extract spectral features
-- Generate visualizations of original and processed spectra
+- Process spectral data from CSV files (e.g., NIR data)
 - Export processed data as text files
+- Remove continuum and extract spectral feature's parameters
+- Generate visualizations of original and processed spectra
+- Generate statistics and parameters of original and processed spectrum
+- Applying the linear spectral unmixing (LSUMx) model to retrieve smectite content from the measured NIR single-spectrum
 - Comprehensive logging of all operations
 
 ## 📦 Requirements
@@ -94,8 +97,8 @@ Before you can clone the repository, you need to have Git installed on your syst
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/your-username/nir-parser.git
-   cd nir-parser
+   git clone https://github.com/your-username/SPx.git
+   cd SPx
    ```
 
 2. **Install UV package manager**
@@ -168,7 +171,7 @@ Before you can clone the repository, you need to have Git installed on your syst
 
 ## 🔧 Usage
 
-Run the NIR parser from the command line:
+Run SPx from the command line:
 
 ```bash
 python -m src.base.main [options]
@@ -213,9 +216,9 @@ python -m src.base.main --no-plots
 python -m src.base.predict
 ```
 
-## 📊 Logging
+## 🫶 Support
 
-The parser logs all operations to both the console and a log file (`nir_parser.log`) in the results directory. This helps track the processing steps and diagnose any issues that might occur.
+This project No. 3007/01/01 has received funding from the **European Union´s Horizon 2020 research and innovation programme** under the *Marie Skłodowska-Curie grant agreement No. 945478*.
 
 ## 📄 License
 

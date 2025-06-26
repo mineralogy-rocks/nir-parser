@@ -3,6 +3,7 @@ name = "nir-parser"
 version = "1"
 requires-python = ">=3.10"
 dependencies = [
+    "coloredlogs>=15.0.1",
     "dotenv>=0.9.9",
     "matplotlib>=3.10.3",
     "openpyxl>=3.1.5",
@@ -10,6 +11,7 @@ dependencies = [
     "pysptools>=0.15.0",
     "ruff>=0.11.10",
     "scipy==1.13.1",
+    "tqdm>=4.67.1",
 ]
 
 [tool.ruff]
