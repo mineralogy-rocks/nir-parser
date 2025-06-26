@@ -5,14 +5,11 @@ from typing import Tuple, Dict, Any
 import pandas as pd
 import numpy as np
 from scipy.optimize import minimize_scalar
+from tqdm import tqdm
 
 from src.config import settings
 
 
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-)
 logger = logging.getLogger(__name__)
 
 
@@ -94,6 +91,12 @@ def _find_optimal_mixture(data: pd.Series, endmembers_df: pd.DataFrame) -> Tuple
 
 
 def main():
+    import coloredlogs
+
+    coloredlogs.install(level='INFO', fmt='%(asctime)s %(levelname)s %(message)s')
+
+    logger.info("Starting endmember prediction processing")
+
     _endmembers = pd.read_excel(settings.ENDMEMBERS_PATH)
     if len(_endmembers) > 2:
         logger.error(f"Too many endmembers in the file: {_endmembers}. Should be only 2!")
@@ -111,7 +114,7 @@ def main():
         return
 
     results = []
-    for index, row in _df.iterrows():
+    for index, row in tqdm(_df.iterrows(), desc="Processing rows", unit="row", total=len(_df)):
         try:
             a1, a2, ssr, mixture = _find_optimal_mixture(row, _endmembers)
             row_id = row.iloc[0]
@@ -125,13 +128,13 @@ def main():
             }
             results.append(_loc_results)
 
-            logger.info(f"Processed Row ID {row_id}: a1={a1:.4f}, SSR={ssr:.4f}")
-
         except Exception as e:
             logger.error(f"Failed to process row {index}. Error: {e}", exc_info=True)
 
     results = pd.DataFrame(results)
     results.to_excel(settings.OUTPUT_PATH / "data" / "results_predicted.xlsx", index=False)
+
+    logger.info("Processing completed successfully")
 
 
 if __name__ == "__main__":
